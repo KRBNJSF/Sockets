@@ -35,11 +35,12 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {                      //No data were sent
         console.log(`${socket.data.user} disconnected`); //Printing out logged out data -> (user)
         activeUsers.delete(socket.data.user);            //Deleting data (user) from activeUsers
-        
+        io.emit("user disconnected", socket.data.user);  //Sending data to others that someone has disconnected
     });
 
 });
 
 server.listen(PORT, () => console.log(`Server is running on ${PORT}`));
+
 ```
 6)Spuštění serveru v node.js -> npm start, vypnutí serveru: Ctrl+c

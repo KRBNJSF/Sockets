@@ -2,6 +2,8 @@
 
 https://socket.io/
 
+https://socket.io/docs/v4/server-api/
+
 1) npm init -y
 2) npm i express http nodemon socket.io
 3) file index.js

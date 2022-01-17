@@ -55,4 +55,47 @@ server.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 12) ![image](https://user-images.githubusercontent.com/90755554/148749802-be03d7ea-f44a-46ae-a4aa-54e4bc5f21b6.png)
 ![image](https://user-images.githubusercontent.com/90755554/148749277-605e0c2c-1170-4f84-8384-cef5d2b7ff6e.png)
 ![image](https://user-images.githubusercontent.com/90755554/148749557-442d7bac-59bb-4b24-af47-6c90281173c0.png)
-![image](https://user-images.githubusercontent.com/90755554/148749630-aae2a24b-f243-4cba-9c18-0ec50a406161.png)
+![image](https://user-images.githubusercontent.com/90755554/148749630-aae2a24b-f243-4cba-9c18-0ec50a406161.png)<br>
+Do index.html -> 
+![image](https://user-images.githubusercontent.com/90755554/149747768-1e8ab672-f2da-41ba-9d70-4cd4a50929a2.png)
+
+Do main.js ->
+Přidání nových uživatelů na server
+```
+const socket = io("http://127.0.0.1:3000");
+const users = document.getElementById("users");
+const input = document.getElementById("input");
+const send = document.getElementById("send");
+const chat = document.getElementById("chat");
+
+let userName = "";
+
+const onUserConnect = (user) => {
+    userName = user || `User${Math.floor(Math.random()*1000000)}`; //Generating random name
+    socket.emit("new user connected", userName); //io.on name
+    newUser(userName);
+};
+
+const newUser = (user) => {
+    if(document.querySelector(`.${user}-userlist`)) return;
+    const newUserDiv = `
+    <div class="${user}-userlist"> 
+    <p>${user}</p>
+    </div>
+    `;
+    users.innerHTML += newUserDiv;
+}
+
+window.onload = () => {
+    onUserConnect();
+}
+
+socket.on("new user connected", (data) => { //index.js - row 19 ([on name])
+    console.log(data);
+    data.map((user) => newUser(user));
+});
+
+socket.on("user disconnected", (user)=> {
+    document.querySelector(`.${user}-userlist`).remove();
+});
+```

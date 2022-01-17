@@ -5,7 +5,7 @@ https://socket.io/
 https://socket.io/docs/v4/server-api/
 
 1) npm init -y
-2) npm i express http nodemon socket.io
+2) npm i express http nodemon socket.io express
 3) file index.js
 4) scripts { "start": "nodemon index.js" } 
 5) Do index.js souboru -> 

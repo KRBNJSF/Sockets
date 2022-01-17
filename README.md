@@ -99,3 +99,24 @@ socket.on("user disconnected", (user)=> {
     document.querySelector(`.${user}-userlist`).remove();
 });
 ```
+<b>:</b>
+![image](https://user-images.githubusercontent.com/90755554/149750692-1e3816f4-95b4-4932-8803-8b6c8c896b06.png)<br>
+Chat -> main.js
+```
+//CHAT
+send.onclick = () => {
+    socket.emit("chat", `${userName}: ${input.value}`);
+    input.value = "";
+}
+
+socket.on("chat", (data) => {
+    chat.innerHTML += `<p>${data}</p>`;
+});
+```
+index.js
+```
+    socket.on("chat", (data)=> {
+        io.emit("chat", data);
+    });
+});
+```
